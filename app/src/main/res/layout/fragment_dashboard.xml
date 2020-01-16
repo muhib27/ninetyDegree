@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_gravity="center"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.DashboardFragment">
+    <LinearLayout
+        android:gravity="center"
+        android:id="@+id/slide"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/ivLokkhoIconId1"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+          android:layout_marginTop="@dimen/margin_20dp"
+            android:src="@drawable/logo"/>
+<!--    <com.smarteist.autoimageslider.SliderView-->
+<!--        android:id="@+id/imageSlider"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        app:sliderAnimationDuration="600"-->
+<!--        app:sliderAutoCycleDirection="back_and_forth"-->
+<!--        app:sliderAutoCycleEnabled="true"-->
+<!--        app:sliderCircularHandlerEnabled="true"-->
+<!--        app:sliderIndicatorAnimationDuration="600"-->
+<!--        app:sliderIndicatorGravity="right|bottom"-->
+<!--        app:sliderIndicatorMargin="15dp"-->
+<!--        app:sliderIndicatorOrientation="horizontal"-->
+<!--        app:sliderIndicatorPadding="3dp"-->
+<!--        app:sliderIndicatorRadius="2dp"-->
+<!--        app:sliderIndicatorSelectedColor="#5A5A5A"-->
+<!--        app:sliderIndicatorUnselectedColor="@color/black"-->
+<!--        app:sliderScrollTimeInSec="3"-->
+<!--        app:sliderStartAutoCycle="true" />-->
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slide"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/rlLokkhoDashId2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <!--!!!!!!!!!!!!!!!!!!Courses!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/margin_20dp"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:id="@+id/rlCoursesDashId1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/llCoursesDashId1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/ivCoursesDashId1"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center_horizontal"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_courses_dash" />
+
+                        <TextView
+                            android:id="@+id/tvCoursesDashId1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/courses"
+                            android:textColor="@color/black"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+                <!--!!!!!!!!!!!!!!!!!!Trainers Information!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/rlTrainersDashId1"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginLeft="1dp"-->
+<!--                    android:layout_weight=".5"-->
+<!--                    android:background="@color/white"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/llTrainersDashId1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:layout_gravity="center_horizontal|center_vertical"-->
+<!--                        android:gravity="center"-->
+<!--                        android:orientation="vertical">-->
+
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/ivTrainersDashId1"-->
+<!--                            android:layout_width="60dp"-->
+<!--                            android:layout_height="60dp"-->
+<!--                            android:layout_gravity="center_horizontal"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:src="@drawable/ic_trainers_dash" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvTrainersDashId1"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_below="@+id/llTrainersDashId1"-->
+<!--                            android:layout_centerInParent="true"-->
+<!--                            android:text="@string/trainers"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="15sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                    </LinearLayout>-->
+
+
+<!--                </LinearLayout>-->
+            </LinearLayout>
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="160dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:weightSum="1">-->
+<!--                &lt;!&ndash;!!!!!!!!!!!!!!!!!!Successfull Student!!!!!!!!!!!!!!!!!!!!!!!!!!!!&ndash;&gt;-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/rlSuccStudentsDashId1"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginTop="1dp"-->
+<!--                    android:layout_weight=".5"-->
+<!--                    android:background="@color/white"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/llSuccStudentsDashId1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:layout_gravity="center_horizontal|center_vertical"-->
+<!--                        android:gravity="center"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/ivSuccStudentsDashId1"-->
+<!--                            android:layout_width="60dp"-->
+<!--                            android:layout_height="60dp"-->
+<!--                            android:layout_gravity="center_horizontal"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:src="@drawable/ic_succ_students_dash" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvSuccStudentsDashId1"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_below="@+id/llSuccStudentsDashId1"-->
+<!--                            android:layout_centerInParent="true"-->
+<!--                            android:text="@string/successful_student"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="15sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                    </LinearLayout>-->
+
+
+<!--                </LinearLayout>-->
+<!--                !!!!!!!!!!!!!!!!!!Gallery!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/rlGalleryDashId1"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginLeft="1dp"-->
+<!--                    android:layout_marginTop="1dp"-->
+<!--                    android:layout_weight=".5"-->
+<!--                    android:background="@color/white"-->
+<!--                    android:gravity="center"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/llGalleryDashId1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:layout_gravity="center_horizontal|center_vertical"-->
+<!--                        android:gravity="center"-->
+<!--                        android:orientation="vertical">-->
+
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/ivGalleryDashId1"-->
+<!--                            android:layout_width="60dp"-->
+<!--                            android:layout_height="60dp"-->
+<!--                            android:layout_gravity="center_horizontal"-->
+<!--                            android:padding="5dp"-->
+<!--                            android:src="@drawable/ic_gallery_dash" />-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvGalleryDashId1"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_below="@+id/llGalleryDashId1"-->
+<!--                            android:layout_centerInParent="true"-->
+<!--                            android:text="@string/gallery"-->
+<!--                            android:textColor="@color/black"-->
+<!--                            android:textSize="15sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                    </LinearLayout>-->
+
+
+<!--                </LinearLayout>-->
+<!--            </LinearLayout>-->
+
+
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+    <TextView
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/margin_10dp"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:text=""/>
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">90 Degree Education</string>
+    <string name="className">Class</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="wellcome">Welcome</string>
+
+    <string name="developed">Developed By <font color='#ffffff'>90 DEGREE</font></string>
+    <string name="courses">Courses</string>
+    <string name="trainers">Teacher 10</string>
+    <string name="successful_student">Total student 100</string>
+    <string name="gallery">Tutorial 100</string>
+
+</resources>
