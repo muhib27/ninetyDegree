@@ -14,9 +14,14 @@ package com.muhib.ninetydegree.webapi;
 //import retrofit2.http.Part;
 //import retrofit2.http.Path;
 
+import com.muhib.ninetydegree.TrainerInformationListResponse;
+
+import io.reactivex.Observable;
+import retrofit2.http.GET;
+
 public interface ApiInterface {
-//    @GET(WebMethod.TRAINER_LIST)
-//    Observable<TrainerInformationListResponse> getTrainersInformation();
+    @GET(WebMethod.TRAINER_LIST)
+    Observable<TrainerInformationListResponse> getTrainersInformation();
 //
 //    @GET(WebMethod.ADVISORS_LIST)
 //    Observable<AdvisorsResponse> getAdvisorsList();

@@ -14,12 +14,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.muhib.ninetydegree.Interface.ItemClickListener;
 import com.muhib.ninetydegree.MainActivity;
 import com.muhib.ninetydegree.R;
 
+import com.muhib.ninetydegree.TrainerInformationListResponse;
 import com.muhib.ninetydegree.adapter.SubjectAdapter;
+import com.muhib.ninetydegree.webapi.ApiInterface;
+import com.muhib.ninetydegree.webapi.ConnectionURL;
+import com.muhib.ninetydegree.webapi.ServiceFactory;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class SubjectFragment extends Fragment implements ItemClickListener {
 
@@ -41,6 +54,47 @@ public class SubjectFragment extends Fragment implements ItemClickListener {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(SubjectViewModel.class);
         // TODO: Use the ViewModel
+
+        callApi();
+    }
+
+    private void callApi() {
+
+
+//            if (!NetworkConnection.getInstance().isNetworkAvailable()) {
+//                Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            uiHelper.showLoadingDialog("Please wait...");
+
+            // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
+            ServiceFactory.createService(ApiInterface.class, ConnectionURL.BASE_URL)
+                    .getTrainersInformation()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<TrainerInformationListResponse>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(TrainerInformationListResponse trainerInformationListResponse) {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+
     }
 
     @Override
@@ -74,4 +128,5 @@ public class SubjectFragment extends Fragment implements ItemClickListener {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 }
