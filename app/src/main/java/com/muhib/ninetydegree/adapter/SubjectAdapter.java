@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,6 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.muhib.ninetydegree.Interface.ItemClickListener;
 import com.muhib.ninetydegree.R;
+import com.muhib.ninetydegree.UIHelper;
+import com.muhib.ninetydegree.model.SubjectModel;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.security.auth.Subject;
 
 
 public class SubjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -20,10 +29,12 @@ public class SubjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     ItemClickListener itemClickListener;
     private static final int ITEM = 0;
     Context mContext;
+    List<SubjectModel> subjectList;
     String[] data;
+    String clsNm;
 
-    public SubjectAdapter(Context context, String[] data, ItemClickListener itemClickListener) {
-        this.data = data;
+    public SubjectAdapter(Context context, ItemClickListener itemClickListener) {
+        this.subjectList = new ArrayList<>();
         this.itemClickListener = itemClickListener;
         mContext = context;
     }
@@ -43,7 +54,7 @@ public class SubjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         switch (viewType) {
             case ITEM:
-                View viewItem = inflater.inflate(R.layout.class_item_row, parent, false);
+                View viewItem = inflater.inflate(R.layout.subject_item_row, parent, false);
                 viewHolder = new HeroVH(viewItem);
                 break;
 
@@ -53,25 +64,34 @@ public class SubjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
-//         final Option optionModel = mValues.get(position);
-        switch (getItemViewType(position)) {
-            case ITEM:
+         final SubjectModel subjectModel = subjectList.get(position);
+
                 final HeroVH itemHolder = (HeroVH) viewHolder;
-                itemHolder.title.setText(data[position]);
+                itemHolder.cardView.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_scale_transition));
+                itemHolder.title.setText(subjectModel.getSubjectName());
+                itemHolder.className.setText(clsNm);
+                itemHolder.date.setText(UIHelper.dateTimeParse(subjectModel.getSubjectCreatedDate()));
                 itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        itemClickListener.setClickListener(position);
+                        itemClickListener.setClickListener(subjectModel.getSubjectId());
                     }
                 });
-                break;
-        }
+                if(subjectModel.getSubjectBanner()!=null) {
+                    Picasso.get().load(subjectModel.getSubjectBanner()).into(itemHolder.mPosterImg);
+                    itemHolder.className.setVisibility(View.GONE);
+                }
+                else
+                {
+                    itemHolder.className.setVisibility(View.VISIBLE);
+                }
+
     }
 
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return subjectList.size();
     }
 
     @Override
@@ -85,31 +105,33 @@ public class SubjectAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     protected class HeroVH extends RecyclerView.ViewHolder {
         private TextView title;
-        private TextView mMovieDesc;
-        private TextView mYear; // displays "year | language"
+        private TextView className;
+        private TextView date; // displays "year | language"
         private ImageView mPosterImg;
         private CardView cardView;
 
         public HeroVH(View itemView) {
             super(itemView);
              title = itemView.findViewById(R.id.tvCoursesDashId1);
+            className = itemView.findViewById(R.id.className);
+            date = itemView.findViewById(R.id.date);
             cardView = itemView.findViewById(R.id.cardView);
+            mPosterImg = itemView.findViewById(R.id.img);
 
         }
     }
 
-//    public void add(Option r) {
-//        mValues.add(r);
-//        notifyItemInserted(mValues.size() - 1);
-//    }
-//
-//    public void addAllData(List<Option> moveResults, int questionCount, String type) {
-//        for (Option result : moveResults) {
-//            add(result);
-//        }
-//        question = questionCount;
-//        questionType = type;
-//    }
+    public void add(SubjectModel r) {
+        subjectList.add(r);
+        notifyItemInserted(subjectList.size() - 1);
+    }
+
+    public void addAllData(List<SubjectModel> moveResults , String cls) {
+        for (SubjectModel result : moveResults) {
+            add(result);
+        }
+        clsNm = cls;
+    }
 //
 //    public void remove(Option r) {
 //        int position = mValues.indexOf(r);

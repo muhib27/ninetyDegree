@@ -1,5 +1,6 @@
 package com.muhib.ninetydegree.fragment;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -17,27 +18,28 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.muhib.ninetydegree.Interface.ItemClickListener;
-import com.muhib.ninetydegree.MainActivity;
+import com.muhib.ninetydegree.Main2Activity;
 import com.muhib.ninetydegree.R;
 
-import com.muhib.ninetydegree.TrainerInformationListResponse;
 import com.muhib.ninetydegree.adapter.SubjectAdapter;
-import com.muhib.ninetydegree.webapi.ApiInterface;
-import com.muhib.ninetydegree.webapi.ConnectionURL;
-import com.muhib.ninetydegree.webapi.ServiceFactory;
+import com.muhib.ninetydegree.model.ClassListResponse;
+import com.muhib.ninetydegree.model.SubjectModel;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.security.auth.Subject;
+
+import static com.muhib.ninetydegree.fragment.DashboardFragment.SELECTED;
+
 
 public class SubjectFragment extends Fragment implements ItemClickListener {
-
+    String cls = "";
+    ClassListResponse classListResponseModel;
+    ClassListResponse classListResponse;
     SubjectAdapter subjectAdapter;
     private SubjectViewModel mViewModel;
+    List<SubjectModel> subjectList;
 
     public static SubjectFragment newInstance() {
         return new SubjectFragment();
@@ -55,74 +57,59 @@ public class SubjectFragment extends Fragment implements ItemClickListener {
         mViewModel = ViewModelProviders.of(this).get(SubjectViewModel.class);
         // TODO: Use the ViewModel
 
-        callApi();
+        //callApi();
     }
 
-    private void callApi() {
-
-
-//            if (!NetworkConnection.getInstance().isNetworkAvailable()) {
-//                Toast.makeText(getActivity(), "No Connectivity", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//            uiHelper.showLoadingDialog("Please wait...");
-
-            // RetrofitApiClient.getApiInterface().getTaskAssign(requestBody)
-            ServiceFactory.createService(ApiInterface.class, ConnectionURL.BASE_URL)
-                    .getTrainersInformation()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<TrainerInformationListResponse>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(TrainerInformationListResponse trainerInformationListResponse) {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
-
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(false);
-        String[] data = { "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48"};
+        if(getActivity()!=null) {
+            ((Main2Activity) getActivity()).tvHomeToolbarText.setText("Subject");
+            ((Main2Activity) getActivity()).ivHomeMenuBarId1.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.left_arrow));
+
+        }
+
+        subjectList = new ArrayList<>();
+        classListResponseModel = ViewModelProviders.of(getActivity()).get(ClassListResponse.class);
+        classListResponse = classListResponseModel.getMutableLiveData().getValue();
+
+        for(int i=0; i< classListResponse.getData().size(); i++){
+            if(classListResponse.getData().get(i).getId().toString().equals(SELECTED)) {
+                for (int j = 0; j < classListResponse.getData().get(i).getSubjects().size(); j++) {
+                    subjectList = classListResponse.getData().get(i).getSubjects();
+                    cls = classListResponse.getData().get(i).getName();
+                }
+                break;
+            }
+        }
+
+
+        String[] data = { "15", "16", "17", "18", "19", "20", "21"};
 
         // set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.recycleview);
         int numberOfColumns = 1;
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
-        subjectAdapter = new SubjectAdapter(getActivity(), data, this);
+        subjectAdapter = new SubjectAdapter(getActivity(),  this);
 //        com.muhib.ninetydegree.adapter.setClickListener(this);
         recyclerView.setAdapter(subjectAdapter);
+        subjectAdapter.addAllData(subjectList,cls);
     }
 
     @Override
-    public void setClickListener(int pos) {
-        PlayerFragment playerFragment = new PlayerFragment();
-        gotoFragment(playerFragment, "playerFragment");
+    public void setClickListener(int id) {
+        Bundle bundle = new Bundle();
+        bundle.putString("id", String.valueOf(id));
+        ChapterFragment chapterFragment = new ChapterFragment();
+        gotoFragment(chapterFragment, "chapterFragment", bundle);
 
     }
 
-    private void gotoFragment(Fragment fragment, String tag) {
+    private void gotoFragment(Fragment fragment, String tag, Bundle bundle) {
         // load com.muhib.ninetydegree.fragment
         // com.muhib.ninetydegree.fragment.setArguments(bundle);
+        fragment.setArguments(bundle);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, fragment, tag);
         transaction.addToBackStack(null);

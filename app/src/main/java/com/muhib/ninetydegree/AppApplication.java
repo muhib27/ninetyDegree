@@ -6,6 +6,7 @@ import android.content.Context;
 import androidx.multidex.MultiDex;
 
 import com.muhib.ninetydegree.Interface.ConnectivityReceiverListener;
+import com.muhib.ninetydegree.broadcast_receiver.ConnectivityReceiver;
 
 
 public class AppApplication extends Application {
@@ -26,5 +27,9 @@ public class AppApplication extends Application {
     }
 
     public void setConnectivityListener(ConnectivityReceiverListener listener) {
+    }
+
+    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+        ConnectivityReceiver.connectivityReceiverListener = listener;
     }
 }

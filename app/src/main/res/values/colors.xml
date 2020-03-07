@@ -9,5 +9,7 @@
     <color name="grey_dark">#ffffff</color>
     <color name="blue_light">#89b9ff</color>
 
+    <color name="orange_clr">#f7941d</color>
+
     <color name="backgroundIcon">#919191</color>
 </resources>

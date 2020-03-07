@@ -38,16 +38,40 @@
                 android:id="@+id/youtube_player_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:videoId="S0Q4gqBUs7c"
-                app:autoPlay="true"
+                app:autoPlay="false"
                 app:showFullScreenButton="false" />
         </LinearLayout>
     </RelativeLayout>
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".55">
+        android:layout_weight=".48">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
+    </ScrollView>
+    <LinearLayout
+
+        android:gravity="bottom"
+        android:layout_weight=".07"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp">
+    <TextView
+        android:id="@+id/comment"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="@dimen/margin_20dp"
+        android:paddingStart="@dimen/margin_20dp"
+        android:background="@drawable/ic_rounded_ash_shape"
+        android:layout_marginStart="@dimen/margin_10dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:text="Comment"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -14,20 +14,32 @@ package com.muhib.ninetydegree.webapi;
 //import retrofit2.http.Part;
 //import retrofit2.http.Path;
 
+import com.google.gson.JsonObject;
 import com.muhib.ninetydegree.TrainerInformationListResponse;
+import com.muhib.ninetydegree.model.ChapterListResponse;
+import com.muhib.ninetydegree.model.ClassListResponse;
+import com.muhib.ninetydegree.model.CommentResponse;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiInterface {
-    @GET(WebMethod.TRAINER_LIST)
-    Observable<TrainerInformationListResponse> getTrainersInformation();
-//
-//    @GET(WebMethod.ADVISORS_LIST)
+    @GET(WebMethod.CLASS_LIST)
+    Observable<ClassListResponse> getClasses(@Field("device_token") String token);
+
+//    @GET(WebMethod.COURSE_LIST)
 //    Observable<AdvisorsResponse> getAdvisorsList();
 //
-//    @GET(WebMethod.TRAINER_DETAILS)
-//    Observable<TrainersDetailsResponse> getTrainersDetailsById(@Path("id") String id);
+    @GET(WebMethod.CHAPTERS)
+    Observable<ChapterListResponse> getChapters(@Path("chapters") String id);
+
+    @POST(WebMethod.COMMENT)
+    Observable<CommentResponse> postComment(@Body JsonObject jsonObject);
 //
 //    @GET(WebMethod.PUBLICATION_LIST)
 //    Observable<PublicationListResponse> getPublicationList();

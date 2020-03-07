@@ -1,8 +1,12 @@
 package com.muhib.ninetydegree;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -13,12 +17,17 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.widget.TextView;
 //import android.util.Log;
 
+import com.muhib.ninetydegree.broadcast_receiver.InternetConnectionManager;
 import com.muhib.ninetydegree.webapi.ApiInterface;
 import com.muhib.ninetydegree.webapi.ConnectionURL;
 import com.muhib.ninetydegree.webapi.ServiceFactory;
+
+import libs.mjn.prettydialog.PrettyDialog;
+import libs.mjn.prettydialog.PrettyDialogCallback;
 
 //import java.io.IOException;
 //
@@ -28,13 +37,12 @@ import com.muhib.ninetydegree.webapi.ServiceFactory;
 //import io.reactivex.schedulers.Schedulers;
 
 public class SplashScreenActivity extends AppCompatActivity {
-//    SharedPrefsHandler sharedPrefsHandler;
+    //    SharedPrefsHandler sharedPrefsHandler;
     ApiInterface apiInterface;
-
+    PrettyDialog prettyDialog;
     TextView tv;
-
+    String regid;
     private String TAG = "SplashScreenActivity";
-
 
 
     @Override
@@ -44,6 +52,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 //        getActionBar().hide();
         setContentView(R.layout.activity_splash_screen);
         tv = findViewById(R.id.tv);
+        prettyDialog = new PrettyDialog(this);
         String st = "Developed By " + "90 DEGREE";
         final SpannableStringBuilder sb = new SpannableStringBuilder("Developed By 90 DEGREE");
 
@@ -71,19 +80,36 @@ public class SplashScreenActivity extends AppCompatActivity {
 
 
         Toasty.success(getApplicationContext(), "Android ID : " + android_id, Toasty.LENGTH_LONG).show();*/
-        new Thread() {
-            public void run() {
-                try {
-                    sleep(3000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    goHome();
-                   // checkSignUP();
 
+
+        BroadcastReceiver tokenReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String token = intent.getStringExtra("token");
+
+                if (token != null) {
+                    Log.e("firebase", String.valueOf(token));
+                    regid = token;
+                    if(SharedPrefsHandler.getFcm()!=null) {
+                        SharedPrefsHandler.setFcm(regid);
+                        //sendRegistrationIdToBackend(regid);
+                    }
+                    checkInternet();
+
+                    // send token to your server
                 }
+
             }
-        }.start();
+        };
+        LocalBroadcastManager.getInstance(this).registerReceiver(tokenReceiver,
+                new IntentFilter("tokenReceiver"));
+
+
+
+
+        if(!SharedPrefsHandler.getFcm().isEmpty())
+            checkInternet();
+
 
     }
 
@@ -147,8 +173,48 @@ public class SplashScreenActivity extends AppCompatActivity {
 //        }
 //    }
 
+
+
+    private void checkInternet(){
+        if (InternetConnectionManager.isConnectedToInternet(getApplicationContext()))
+
+        {
+            new Thread() {
+                public void run() {
+                    try {
+                        sleep(2000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        goHome();
+
+                    }
+                }
+            }.start();
+        }
+        else {
+
+            prettyDialog
+                    .setTitle("Internet Connection")
+                    .setMessage("Please connect your internet connection.")
+                    .addButton(
+                            "Ok",
+                            R.color.black,
+                            R.color.orange_clr,
+                            new PrettyDialogCallback() {
+                                @Override
+                                public void onClick() {
+                                    prettyDialog.dismiss();
+                                    finish();
+                                }
+                            }
+                    )
+                    .setIcon(R.drawable.ic_info_error)
+                    .show();
+        }
+    }
     private void goHome() {
-        Intent homeIntent = new Intent(this, MainActivity.class);
+        Intent homeIntent = new Intent(this, Main2Activity.class);
         homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(homeIntent);
         finish();
