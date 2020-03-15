@@ -23,14 +23,17 @@ import com.muhib.ninetydegree.model.CommentResponse;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
+
     @GET(WebMethod.CLASS_LIST)
-    Observable<ClassListResponse> getClasses(@Field("device_token") String token);
+    Observable<ClassListResponse> getClasses(@Query("device_token") String device_token);
 
 //    @GET(WebMethod.COURSE_LIST)
 //    Observable<AdvisorsResponse> getAdvisorsList();

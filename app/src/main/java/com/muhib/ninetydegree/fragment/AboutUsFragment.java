@@ -1,6 +1,7 @@
 package com.muhib.ninetydegree.fragment;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +27,7 @@ import com.muhib.ninetydegree.R;
 public class AboutUsFragment extends Fragment {
 
     WebView webView;
+    TextView title;
 
     public AboutUsFragment() {
         // Required empty public constructor
@@ -39,7 +42,10 @@ public class AboutUsFragment extends Fragment {
             ((Main2Activity) getActivity()).ivHomeMenuBarId1.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.left_arrow));
 
         }
+        title = view.findViewById(R.id.title);
+        title.setText(getResources().getString(R.string.about_us));
         webView = view.findViewById(R.id.webview);
+        webView.setBackgroundColor(Color.TRANSPARENT);
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -47,7 +53,7 @@ public class AboutUsFragment extends Fragment {
   //      webView.loadUrl("file:///android_asset/aboutUs.html");
    // webView.loadData("file:///android_asset/aboutUs.html", "text/html", "UTF-8");
 
-        String st = getString(R.string.about_us);
+        String st = getString(R.string.about_us_text);
         String content = String.valueOf(Html
                 .fromHtml("<![CDATA[<body style=\"text-align:justify; \">"
                         + st

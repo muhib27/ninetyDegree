@@ -20,15 +20,15 @@ public class CommentResponse {
     @SerializedName("msg")
     @Expose
     private String msg;
-    @SerializedName("data")
-    @Expose
-    private Integer data;
+//    @SerializedName("data")
+//    @Expose
+//    private Integer data;
     @SerializedName("error")
     @Expose
     private List<Object> error = null;
-    @SerializedName("comments")
+    @SerializedName("data")
     @Expose
-    private List<Comment> comments = null;
+    private List<Comments> comments = null;
 
     public Boolean getSuccess() {
         return success;
@@ -62,14 +62,6 @@ public class CommentResponse {
         this.msg = msg;
     }
 
-    public Integer getData() {
-        return data;
-    }
-
-    public void setData(Integer data) {
-        this.data = data;
-    }
-
     public List<Object> getError() {
         return error;
     }
@@ -78,11 +70,11 @@ public class CommentResponse {
         this.error = error;
     }
 
-    public List<Comment> getComments() {
+    public List<Comments> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(List<Comments> comments) {
         this.comments = comments;
     }
 }

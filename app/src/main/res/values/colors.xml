@@ -12,4 +12,6 @@
     <color name="orange_clr">#f7941d</color>
 
     <color name="backgroundIcon">#919191</color>
+    <color name="light">#444444</color>
+
 </resources>

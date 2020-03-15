@@ -60,7 +60,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int position) {
          final Comments comments = commentList.get(position);
                 final HeroVH itemHolder = (HeroVH) viewHolder;
-                itemHolder.name.setText(comments.getName());
+                itemHolder.name.setText(comments.getUserName());
                 itemHolder.title.setText(comments.getComments());
                 itemHolder.cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -101,35 +101,34 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-//    public void add(Option r) {
-//        mValues.add(r);
-//        notifyItemInserted(mValues.size() - 1);
-//    }
-//
-//    public void addAllData(List<Option> moveResults, int questionCount, String type) {
-//        for (Option result : moveResults) {
-//            add(result);
-//        }
-//        question = questionCount;
-//        questionType = type;
-//    }
-//
-//    public void remove(Option r) {
-//        int position = mValues.indexOf(r);
-//        if (position > -1) {
-//            mValues.remove(position);
-//            notifyItemRemoved(position);
-//        }
-//    }
-//
-//    public void clear() {
-//        isLoadingAdded = false;
-//        while (getItemCount() > 0) {
-//            remove(getItem(0));
-//        }
-//    }
-//
-//    public Option getItem(int position) {
-//        return mValues.get(position);
-//    }
+    public void add(Comments r) {
+        commentList.add(r);
+        notifyItemInserted(commentList.size() - 1);
+    }
+
+    public void addAllData(List<Comments> moveResults) {
+        for (Comments result : moveResults) {
+            add(result);
+        }
+
+    }
+
+    public void remove(Comments r) {
+        int position = commentList.indexOf(r);
+        if (position > -1) {
+            commentList.remove(position);
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void clear() {
+       // isLoadingAdded = false;
+        while (getItemCount() > 0) {
+            remove(getItem(0));
+        }
+    }
+
+    public Comments getItem(int position) {
+        return commentList.get(position);
+    }
 }

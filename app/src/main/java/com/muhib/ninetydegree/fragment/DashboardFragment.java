@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.gmail.samehadar.iosdialog.CamomileSpinner;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.JsonObject;
 import com.muhib.ninetydegree.AppApplication;
 import com.muhib.ninetydegree.Main2Activity;
 import com.muhib.ninetydegree.R;
@@ -240,13 +241,18 @@ public class DashboardFragment extends Fragment implements ConnectivityReceiver.
 
     private void callApi() {
 
-        String token = "";
+        JsonObject jsonObject;
+        jsonObject = new JsonObject();
+        String token;
         if(SharedPrefsHandler.getFcm().isEmpty())
         {
             token = SharedPrefsHandler.getFcm();
+            jsonObject.addProperty("device_token", token);
         }
         else {
             token = FirebaseInstanceId.getInstance().getToken();
+            if(token!=null)
+            jsonObject.addProperty("device_token", token);
         }
 
 //            if (!NetworkConnection.getInstance().isNetworkAvailable()) {
@@ -325,43 +331,43 @@ public class DashboardFragment extends Fragment implements ConnectivityReceiver.
     {
         for(int i=0;i<classDataList.size(); i++){
             if(classDataList.get(i).getName().equals("Class ONE")) {
-                icon.add(R.drawable.ic_one);
+                icon.add(R.drawable.one_new);
                 colors.add(getResources().getColor(R.color.white));
             }
             else if(classDataList.get(i).getName().equals("Class TWO")) {
-                icon.add(R.drawable.ic_two);
+                icon.add(R.drawable.two_new);
                 colors.add(getResources().getColor(R.color.white));
             }
             else if(classDataList.get(i).getName().equals("Class THREE")) {
-                icon.add(R.drawable.ic_three);
+                icon.add(R.drawable.three_new);
                 colors.add(getResources().getColor(R.color.white));
             }
             else if(classDataList.get(i).getName().equals("Class FOUR")) {
-                icon.add(R.drawable.ic_four);
+                icon.add(R.drawable.four_new);
                 colors.add(getResources().getColor(R.color.white));
             }
             else if(classDataList.get(i).getName().equals("Class FIVE")) {
-                icon.add(R.drawable.ic_five);
+                icon.add(R.drawable.five_new);
                 colors.add(getResources().getColor(R.color.white));
             }
             else if(classDataList.get(i).getName().equals("Class SIX")) {
-                icon.add(R.drawable.ic_six);
+                icon.add(R.drawable.six_new);
                 colors.add(getResources().getColor(R.color.white));
             }
             else if(classDataList.get(i).getName().equals("Class SEVEN")) {
-                icon.add(R.drawable.ic_seven);
+                icon.add(R.drawable.seven_new);
                 colors.add(getResources().getColor(R.color.white));
             }
             else if(classDataList.get(i).getName().equals("Class EIGHT")) {
-                icon.add(R.drawable.ic_eight);
+                icon.add(R.drawable.eight_new);
                 colors.add(getResources().getColor(R.color.white));
             }
             else if(classDataList.get(i).getName().equals("Class NINE-TEN/ SSC")) {
-                icon.add(R.drawable.ic_nine);
+                icon.add(R.drawable.nine_new);
                 colors.add(getResources().getColor(R.color.white));
             }
             else if(classDataList.get(i).getName().equals("Class Eleven-Twelve/ HSC")) {
-                icon.add(R.drawable.ic_ten);
+                icon.add(R.drawable.ten_new);
                 colors.add(getResources().getColor(R.color.white));
             }
             else {
@@ -378,7 +384,7 @@ public class DashboardFragment extends Fragment implements ConnectivityReceiver.
 
         menu = new CircleMenuView(getActivity(), icon, colors);
         menu.setDistance(180);
-        //menu.setIconMenu(R.drawable.ic_menu_my);
+        //menu.setIconMenu(R.drawable.main_new);
 
         fl.removeAllViews();
         fl.addView(menu);

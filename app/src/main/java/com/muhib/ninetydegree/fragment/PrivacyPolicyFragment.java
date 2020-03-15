@@ -1,6 +1,7 @@
 package com.muhib.ninetydegree.fragment;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +27,7 @@ import com.muhib.ninetydegree.R;
 public class PrivacyPolicyFragment extends Fragment {
 
     WebView webView;
+    TextView title;
 
     public PrivacyPolicyFragment() {
         // Required empty public constructor
@@ -38,15 +41,17 @@ public class PrivacyPolicyFragment extends Fragment {
             ((Main2Activity) getActivity()).ivHomeMenuBarId1.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.left_arrow));
 
         }
+        title = view.findViewById(R.id.title);
         webView = view.findViewById(R.id.webview);
-
+        webView.setBackgroundColor(Color.TRANSPARENT);
+        title.setText(getResources().getString(R.string.privacy_policy));
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
   //      webView.loadUrl("file:///android_asset/aboutUs.html");
    // webView.loadData("file:///android_asset/aboutUs.html", "text/html", "UTF-8");
 
-        String st = getString(R.string.about_us);
+        String st = getString(R.string.privacy_policy_text);
         String content = String.valueOf(Html
                 .fromHtml("<![CDATA[<body style=\"text-align:justify; \">"
                         + st

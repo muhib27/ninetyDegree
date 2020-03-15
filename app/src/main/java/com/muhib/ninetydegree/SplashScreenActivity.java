@@ -54,7 +54,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         tv = findViewById(R.id.tv);
         prettyDialog = new PrettyDialog(this);
         String st = "Developed By " + "90 DEGREE";
-        final SpannableStringBuilder sb = new SpannableStringBuilder("Developed By 90 DEGREE");
+        final SpannableStringBuilder sb = new SpannableStringBuilder("Developed By 90 DEGREE EDUCATION");
 
 // Span to set text color to some RGB value
         final ForegroundColorSpan fcs = new ForegroundColorSpan(Color.BLUE);
@@ -63,10 +63,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         final StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
 
 // Set the text color for first 4 characters
-        sb.setSpan(fcs, 13, 22, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        sb.setSpan(fcs, 13, 32, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
 // make them also bold
-        sb.setSpan(bss, 13, 22, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        sb.setSpan(bss, 13, 32, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
         tv.setText(sb);
 

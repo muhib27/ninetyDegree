@@ -25,10 +25,14 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
-    <string name="about_us">About Us</string>
+
     <string name="privacy_policy">Privacy Policy</string>
     <string name="contact_us">Contact Us</string>
+    <string name="about_us">About us</string>
 
+    <string name="about_us_text"><![CDATA[This is totally a Bengali based educational learning app and is manged from Germany.  Every time we try our best to provide the easiest way of learning with techniques. We make videos related to all national curriculum subjects . Students of different classes(i.e. class 1 to class 12) and competitive exams candidates will be benefited after watching our videos. We believe in straight education! That\'s why we are \'90 DEGREE\' and our one & only focus is on developing \"90 Degree Education for all\".]]></string>
+    <string name="contact_us_text"><![CDATA[For any kind of information, suggestion and help- contact us at contact@shompurok.com or find us on- Official Website: http://www.90degreeeducation.com/ & http://shompurok.com/ facebook:  https://www.facebook.com/90.degree.education/ Twitter:  https://twitter.com/90_education Instagram:  https://www.instagram.com/90.degree.education/]]></string>
+    <string name="privacy_policy_text">This page informs you of our policies regarding the collection, use and disclosure of Personal Information we receive from users of the app, We use your Personal Information only for improving the app. By using the app, you agree to the collection and use of information in accordance with the policy.</string>
 
 
 </resources>

@@ -396,6 +396,7 @@ public class PlayerFragment extends Fragment implements ItemClickListener {
                     @Override
                     public void onNext(CommentResponse commentResponse) {
                         Log.v("commentResponse", commentResponse.toString());
+                        commentAdapter.addAllData(commentResponse.getComments());
 //                        classListResponseModel = ViewModelProviders.of(getActivity()).get(ClassListResponse.class);
 //                        classListResponseModel.setClassResData(classListResponse);
 //

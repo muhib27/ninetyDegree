@@ -1,6 +1,7 @@
 package com.muhib.ninetydegree.fragment;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +27,7 @@ import com.muhib.ninetydegree.R;
 public class ContactUsFragment extends Fragment {
 
     WebView webView;
+    TextView title;
 
     public ContactUsFragment() {
         // Required empty public constructor
@@ -38,15 +41,18 @@ public class ContactUsFragment extends Fragment {
             ((Main2Activity) getActivity()).ivHomeMenuBarId1.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.left_arrow));
 
         }
+        title = view.findViewById(R.id.title);
         webView = view.findViewById(R.id.webview);
+        webView.setBackgroundColor(Color.TRANSPARENT);
 
+        title.setText(getResources().getString(R.string.contact_us));
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
   //      webView.loadUrl("file:///android_asset/aboutUs.html");
    // webView.loadData("file:///android_asset/aboutUs.html", "text/html", "UTF-8");
 
-        String st = getString(R.string.about_us);
+        String st = getString(R.string.contact_us_text);
         String content = String.valueOf(Html
                 .fromHtml("<![CDATA[<body style=\"text-align:justify; \">"
                         + st
@@ -62,4 +68,19 @@ public class ContactUsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_about_us, container, false);
     }
 
+
+//    Contact us-
+//    For any kind of information, suggestion and help-
+//    contact us at contact@shompurok.com
+//    or find us on-
+//    Official Website:
+//    http://www.90degreeeducation.com/
+//            &
+//    http://shompurok.com/
+//    facebook:
+//    https://www.facebook.com/90.degree.education/
+//    Twitter:
+//    https://twitter.com/90_education
+//    Instagram:
+//    https://www.instagram.com/90.degree.education/
 }
