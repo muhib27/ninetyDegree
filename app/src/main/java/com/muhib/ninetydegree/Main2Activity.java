@@ -24,6 +24,7 @@ import com.muhib.ninetydegree.fragment.AboutUsFragment;
 import com.muhib.ninetydegree.fragment.ContactUsFragment;
 import com.muhib.ninetydegree.fragment.DashboardFragment;
 import com.muhib.ninetydegree.fragment.PrivacyPolicyFragment;
+import com.muhib.ninetydegree.fragment.PushPlayerFragment;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -74,10 +75,22 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 //        NavigationUI.setupWithNavController(navigationView, navController);
+        final Bundle extras = getIntent().getExtras();
+        String videoId = "";
+        if (extras != null && !extras.isEmpty()) {
+            videoId = extras.getString("videoId");
+        }
 
-
-        DashboardFragment dashboardFragment = new DashboardFragment();
-        gotoHomeFragment(dashboardFragment, "DashboardFragment");
+        if(videoId!=null && !videoId.isEmpty()){
+            PushPlayerFragment pushPlayerFragment = new PushPlayerFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("videoId", videoId);
+            gotoHomeFragmentBundle(pushPlayerFragment, "pushPlayerFragment", bundle);
+        }
+        else {
+            DashboardFragment dashboardFragment = new DashboardFragment();
+            gotoHomeFragment(dashboardFragment, "DashboardFragment");
+        }
     }
 
     @Override
@@ -103,6 +116,15 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
         transaction.commit();
     }
 
+    private void gotoHomeFragmentBundle(Fragment fragment, String tag, Bundle bundle) {
+        // load com.muhib.ninetydegree.fragment
+        // com.muhib.ninetydegree.fragment.setArguments(bundle);
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, fragment, tag);
+        // transaction.addToBackStack(null);
+        transaction.commit();
+    }
     private void gotoFragment(Fragment fragment, String tag) {
         // load com.muhib.ninetydegree.fragment
         // com.muhib.ninetydegree.fragment.setArguments(bundle);
@@ -152,12 +174,19 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ivHomeMenuBarId1:
+                PushPlayerFragment pushPlayerFragment = (PushPlayerFragment)getSupportFragmentManager().findFragmentByTag("pushPlayerFragment");
 
                 DashboardFragment dashboardFragment = (DashboardFragment) getSupportFragmentManager().findFragmentByTag("DashboardFragment");
-                if (dashboardFragment != null && !dashboardFragment.isVisible()) {
+                if (dashboardFragment != null && !dashboardFragment.isVisible() ) {
                     getSupportFragmentManager().popBackStack();
                     //Toast.makeText(getApplicationContext(), "ff", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else if(pushPlayerFragment!=null && pushPlayerFragment.isVisible())
+                {
+                    DashboardFragment dashboardFragment1 = new DashboardFragment();
+                    gotoHomeFragment(dashboardFragment1, "DashboardFragment");
+                }
+                else {
 
                     drawer.openDrawer(GravityCompat.START);
                 }
@@ -171,6 +200,13 @@ public class Main2Activity extends AppCompatActivity implements NavigationView.O
             drawer.closeDrawer(GravityCompat.START);
         } else {
 
+            PushPlayerFragment pushPlayerFragment = (PushPlayerFragment)getSupportFragmentManager().findFragmentByTag("pushPlayerFragment");
+            if(pushPlayerFragment !=null && pushPlayerFragment.isVisible())
+            {
+                DashboardFragment dashboardFragment = new DashboardFragment();
+                gotoHomeFragment(dashboardFragment, "DashboardFragment");
+            }
+            else
             super.onBackPressed();
         }
     }

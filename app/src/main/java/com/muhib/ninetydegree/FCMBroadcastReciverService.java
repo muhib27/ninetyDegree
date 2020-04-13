@@ -39,14 +39,14 @@ public class FCMBroadcastReciverService extends FirebaseMessagingService {
                 // Map<String, String> data = remoteMessage.getData();
                 String title = remoteMessage.getData().get("title");
 //                String img = remoteMessage.getData().get("image_url");
-//                String msg = remoteMessage.getData().get("message");
+                String msg = remoteMessage.getData().get("item_id");
                 String subtitle = remoteMessage.getData().get("item_contents");
 
                 Log.v("msg", "");
 
 //                if(remoteMessage.getData().get("activity_value")!=null && !remoteMessage.getData().get("activity_value").isEmpty())
 //                    threeDays = remoteMessage.getData().get("activity_value");
-                sendNotification( title,  subtitle);
+                sendNotification( title,  subtitle, msg);
  //           sendNotification();
 
 
@@ -79,7 +79,7 @@ public class FCMBroadcastReciverService extends FirebaseMessagingService {
     }
 
   //  private void sendNotification() {
-    private void sendNotification(String title,  String subtitle) {
+    private void sendNotification(String title,  String subtitle, String videoId) {
     //    Intent intent = new Intent(this, DashboardActivity.class);
         Intent intent = null;
         String channelId = "fcm_default_channel";
@@ -100,7 +100,7 @@ public class FCMBroadcastReciverService extends FirebaseMessagingService {
 
 
 //
-//        intent.putExtra("title", "fd");
+        intent.putExtra("videoId", videoId);
 //        intent.putExtra("img", "");
 //        intent.putExtra("msg", "");
 //        intent.putExtra("subtitle", "");
