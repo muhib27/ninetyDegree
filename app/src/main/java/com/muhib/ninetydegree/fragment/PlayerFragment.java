@@ -44,6 +44,9 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -82,7 +85,7 @@ public class PlayerFragment extends Fragment implements ItemClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if(getActivity()!=null) {
+        if (getActivity() != null) {
             ((Main2Activity) getActivity()).tvHomeToolbarText.setText("Tutorial");
             ((Main2Activity) getActivity()).ivHomeMenuBarId1.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.left_arrow));
 
@@ -94,30 +97,45 @@ public class PlayerFragment extends Fragment implements ItemClickListener {
         chapterDataModel = ViewModelProviders.of(getActivity()).get(ChapterData.class);
         chapterData = chapterDataModel.getMutableLiveData().getValue();
 
-        if(video!=null && video.getFileUrlId()!=null)
+        if (video != null && video.getFileUrlId() != null)
             videoId = video.getFileUrlId();
+
+        if (videoId.contains("&") || videoId.contains("#") || videoId.contains("?")) {
+            if (videoId.contains("&")) {
+                int index = videoId.indexOf("&");
+                videoId = videoId.substring(0, index);
+            } else if (videoId.contains("#")) {
+                int index = videoId.indexOf("#");
+                videoId = videoId.substring(0, index);
+            } else if (videoId.contains("?")) {
+                int index = videoId.indexOf("?");
+                videoId = videoId.substring(0, index);
+            }
+        }
 
         youTubePlayerView = view.findViewById(R.id.youtube_player_view);
         comment = view.findViewById(R.id.comment);
-        powerManager= (PowerManager)getActivity().getSystemService(Context.POWER_SERVICE);
+        powerManager = (PowerManager) getActivity().getSystemService(Context.POWER_SERVICE);
         getLifecycle().addObserver(youTubePlayerView);
         youTubePlayerView.setEnableAutomaticInitialization(false);
 
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                youTubePlayer.loadVideo(videoId, 0);
-            }
-        });
-       // videoId = "S0Q4gqBUs7c";
-       // getVideo();
+        if (!videoId.isEmpty()) {
+            youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+                @Override
+                public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                    youTubePlayer.loadVideo(videoId, 0);
+                }
+            });
+        }
+        // videoId = "S0Q4gqBUs7c";
+        // getVideo();
         comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 myDialog();
             }
         });
-        String[] data = { "What is atom?", "What is atom?", "What is atom?", "What is atom?", "What is atom?", "What is atom?", "What is atom?", "What is atom?"};
+        String[] data = {"What is atom?", "What is atom?", "What is atom?", "What is atom?", "What is atom?", "What is atom?", "What is atom?", "What is atom?"};
 
         // set up the RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.recycleview);
@@ -129,13 +147,13 @@ public class PlayerFragment extends Fragment implements ItemClickListener {
     }
 
 
-
     @Override
     public void setClickListener(int pos) {
         PlayerFragment playerFragment = new PlayerFragment();
-      //  gotoFragment(playerFragment, "playerFragment");
+        //  gotoFragment(playerFragment, "playerFragment");
 
     }
+
     public void getVideo() {
 //        if (videoId != null) {
 //
@@ -217,7 +235,7 @@ public class PlayerFragment extends Fragment implements ItemClickListener {
 
             @Override
             public void onStateChange(YouTubePlayer youTubePlayer, PlayerConstants.PlayerState playerState) {
-                if (playerState !=null) {
+                if (playerState != null) {
                     youTubePlayer.loadVideo(videoId, 0);
                 }
             }
@@ -268,7 +286,7 @@ public class PlayerFragment extends Fragment implements ItemClickListener {
     public void onResume() {
         super.onResume();
         value1 = "Play";
-      //  checkSignUP();
+        //  checkSignUP();
         //getVideo();
     }
 
@@ -281,7 +299,7 @@ public class PlayerFragment extends Fragment implements ItemClickListener {
     public void onStop() {
         super.onStop();
         value1 = "Pause";
-       // getVideo();
+        // getVideo();
     }
 
     @Override
@@ -294,11 +312,12 @@ public class PlayerFragment extends Fragment implements ItemClickListener {
         youTubePlayerView.release();
     }
 
-    String cmnt ="";
+    String cmnt = "";
     String nm = "";
 
     public String m_Text;
-    private void myDialog(){
+
+    private void myDialog() {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -315,12 +334,11 @@ public class PlayerFragment extends Fragment implements ItemClickListener {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 m_Text = input.getText().toString();
-                if(!input.getText().toString().trim().isEmpty() )
-                {
+                if (!input.getText().toString().trim().isEmpty()) {
                     cmnt = input.getText().toString();
-                    if(!name.getText().toString().isEmpty())
+                    if (!name.getText().toString().isEmpty())
                         nm = name.getText().toString();
-                   // callApi(cmnt, nm);
+                    // callApi(cmnt, nm);
 
                     if (InternetConnectionManager.isConnectedToInternet(getActivity())) {
                         callApi(cmnt, nm);
@@ -358,7 +376,7 @@ public class PlayerFragment extends Fragment implements ItemClickListener {
         builder.show();
     }
 
-//    {
+    //    {
 //        "id": "",
 //            "user_name": "ddsd",
 //            "comments": "dfd",
@@ -431,5 +449,16 @@ public class PlayerFragment extends Fragment implements ItemClickListener {
                 });
 
 
+    }
+
+    public String extractYTId(String ytUrl) {
+        String pattern = "&t";
+        Pattern compiledPattern = Pattern.compile(pattern);
+        Matcher matcher = compiledPattern.matcher(ytUrl);
+        if (matcher.find()) {
+            return matcher.group();
+        } else {
+            return "error";
+        }
     }
 }

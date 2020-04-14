@@ -89,6 +89,18 @@ public class PushPlayerFragment extends Fragment {
             videoId = bundle.getString("videoId", "");
         }
 
+        if (videoId.contains("&") || videoId.contains("#") || videoId.contains("?")) {
+            if (videoId.contains("&")) {
+                int index = videoId.indexOf("&");
+                videoId = videoId.substring(0, index);
+            } else if (videoId.contains("#")) {
+                int index = videoId.indexOf("#");
+                videoId = videoId.substring(0, index);
+            } else if (videoId.contains("?")) {
+                int index = videoId.indexOf("?");
+                videoId = videoId.substring(0, index);
+            }
+        }
 
 //        if(video!=null && video.getFileUrlId()!=null)
 //            videoId = video.getFileUrlId();
