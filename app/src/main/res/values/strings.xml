@@ -33,6 +33,15 @@
     <string name="about_us_text"><![CDATA[This is totally a Bengali based educational learning app and is manged from Germany.  Every time we try our best to provide the easiest way of learning with techniques. We make videos related to all national curriculum subjects . Students of different classes(i.e. class 1 to class 12) and competitive exams candidates will be benefited after watching our videos. We believe in straight education! That\'s why we are \'90 DEGREE\' and our one & only focus is on developing \"90 Degree Education for all\".]]></string>
     <string name="contact_us_text"><![CDATA[For any kind of information, suggestion and help- contact us at contact@shompurok.com or find us on- Official Website: http://www.90degreeeducation.com/ & http://shompurok.com/ facebook:  https://www.facebook.com/90.degree.education/ Twitter:  https://twitter.com/90_education Instagram:  https://www.instagram.com/90.degree.education/]]></string>
     <string name="privacy_policy_text">This page informs you of our policies regarding the collection, use and disclosure of Personal Information we receive from users of the app, We use your Personal Information only for improving the app. By using the app, you agree to the collection and use of information in accordance with the policy.</string>
+    <string name="developed_by"><a href="http://shompurok.com/"><font fgcolor='#000000'>Developed By </font> <font fgcolor='#3C3CFF'>90 DEGREE EDUCATION</font></a></string>
 
+    <string name="status_error">Hi <font fgcolor='#FFFF3dd'>Error</font></string>
+    <string name="contact_info_header">For any kind of infomation, suggestion and help- \nContact us at</string>
+
+
+    <string name="web_address"><a href="http://shompurok.com/">   <font fgcolor='#3C3CFF'>www.shompurok.com</font></a></string>
+    <string name="facebook_address"><a href="https://www.facebook.com/90.degree.education/"><font fgcolor='#3C3CFF'>https://www.facebook.com/90.degree.education/</font></a></string>
+    <string name="twitter_address"><a href="https://twitter.com/90_education"><font fgcolor='#3C3CFF'>https://twitter.com/90_education</font></a></string>
+    <string name="instagram_address"><a href="https://www.instagram.com/90.degree.education/"><font fgcolor='#3C3CFF'>https://www.instagram.com/90.degree.education/</font></a></string>
 
 </resources>

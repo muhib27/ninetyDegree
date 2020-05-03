@@ -14,8 +14,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,7 +61,6 @@ public class DashboardFragment extends Fragment implements ConnectivityReceiver.
 
     private PrettyDialog prettyDialog;
     UIHelper uiHelper;
-    TextView tv;
     SliderView sliderView;
     LinearLayout rlCoursesDashId1;
     List<Integer> icon ;
@@ -94,6 +95,9 @@ public class DashboardFragment extends Fragment implements ConnectivityReceiver.
         connectivityReceiver = new ConnectivityReceiver();
         progress = view.findViewById(R.id.inOutProgress);
 
+        TextView my = view.findViewById(R.id.my);
+        my.setMovementMethod(LinkMovementMethod.getInstance());
+
 
         try {
             if(getActivity()!=null)
@@ -123,23 +127,27 @@ public class DashboardFragment extends Fragment implements ConnectivityReceiver.
 //        setUpInterConnectionBroadcastReceiverListener();
 
 //        sliderView = view.findViewById(R.id.imageSlider);
-        tv = view.findViewById(R.id.tv);
-        String st = "Developed By " + "90 DEGREE EDUCATION";
-        final SpannableStringBuilder sb = new SpannableStringBuilder("Developed By 90 DEGREE EDUCATION");
 
-// Span to set text color to some RGB value
-        final ForegroundColorSpan fcs = new ForegroundColorSpan(Color.BLUE);
-
-// Span to make text bold
-        final StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
-
-// Set the text color for first 4 characters
-        sb.setSpan(fcs, 13, 32, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-
-// make them also bold
-        sb.setSpan(bss, 13, 32, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-
-        tv.setText(sb);
+//       TextView tv = view.findViewById(R.id.tv);
+////       // String st = "Developed By " + "90 DEGREE EDUCATION";
+//        final SpannableStringBuilder sb = new SpannableStringBuilder(getActivity().getString(R.string.developed_by));
+//
+//// Span to set text color to some RGB value
+//        final ForegroundColorSpan fcs = new ForegroundColorSpan(Color.BLUE);
+//
+//// Span to make text bold
+//        final StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
+//
+//// Set the text color for first 4 characters
+//        sb.setSpan(fcs, 13, 32, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+//
+//// make them also bold
+//        sb.setSpan(bss, 13, 32, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+//
+//        tv.setText(sb);
+//        tv.setMovementMethod(LinkMovementMethod.getInstance());
+        //Linkify.addLinks(tv, Linkify.WEB_URLS);
+       // tv.setMovementMethod(LinkMovementMethod.getInstance());
 
 //        final ImageSliderAdapter adapter = new ImageSliderAdapter(getContext());
 //        adapter.setCount(4);

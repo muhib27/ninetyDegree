@@ -4,6 +4,7 @@ package com.muhib.ninetydegree.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,22 +43,35 @@ public class ContactUsFragment extends Fragment {
 
         }
         title = view.findViewById(R.id.title);
-        webView = view.findViewById(R.id.webview);
-        webView.setBackgroundColor(Color.TRANSPARENT);
 
-        title.setText(getResources().getString(R.string.contact_us));
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
-  //      webView.loadUrl("file:///android_asset/aboutUs.html");
-   // webView.loadData("file:///android_asset/aboutUs.html", "text/html", "UTF-8");
+        TextView my = view.findViewById(R.id.web);
+        my.setMovementMethod(LinkMovementMethod.getInstance());
 
-        String st = getString(R.string.contact_us_text);
-        String content = String.valueOf(Html
-                .fromHtml("<![CDATA[<body style=\"text-align:justify; \">"
-                        + st
-                        + "</body>]]>"));
-        webView.loadDataWithBaseURL(null, "<style>figure{height: auto;width: 100% !important; padding:0px !important;margin:0px !important;} img{height: auto;width: 100% !important;} iframe{display: inline;height: auto;max-width: 100%;}</style>" + content, "text/html", "UTF-8", null);
+        TextView facebook_address = view.findViewById(R.id.facebook_address);
+        facebook_address.setMovementMethod(LinkMovementMethod.getInstance());
+
+        TextView twitter_address = view.findViewById(R.id.twitter_address);
+        twitter_address.setMovementMethod(LinkMovementMethod.getInstance());
+
+        TextView instagram_address = view.findViewById(R.id.instagram_address);
+        instagram_address.setMovementMethod(LinkMovementMethod.getInstance());
+
+//        webView = view.findViewById(R.id.webview);
+//        webView.setBackgroundColor(Color.TRANSPARENT);
+//
+//        title.setText(getResources().getString(R.string.contact_us));
+//        WebSettings webSettings = webView.getSettings();
+//        webSettings.setJavaScriptEnabled(true);
+//        webView.setWebViewClient(new WebViewClient());
+//  //      webView.loadUrl("file:///android_asset/aboutUs.html");
+//   // webView.loadData("file:///android_asset/aboutUs.html", "text/html", "UTF-8");
+//
+//        String st = getString(R.string.contact_us_text);
+//        String content = String.valueOf(Html
+//                .fromHtml("<![CDATA[<body style=\"text-align:justify; \">"
+//                        + st
+//                        + "</body>]]>"));
+//        webView.loadDataWithBaseURL(null, "<style>figure{height: auto;width: 100% !important; padding:0px !important;margin:0px !important;} img{height: auto;width: 100% !important;} iframe{display: inline;height: auto;max-width: 100%;}</style>" + content, "text/html", "UTF-8", null);
 
     }
 
@@ -65,7 +79,7 @@ public class ContactUsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about_us, container, false);
+        return inflater.inflate(R.layout.fragment_contact_us, container, false);
     }
 
 

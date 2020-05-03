@@ -16,4 +16,6 @@
     <dimen name="text_13sp">13sp</dimen>
     <dimen name="margin_60dp">60dp</dimen>
     <dimen name="margin_100dp">100dp</dimen>
+    <dimen name="text_15sp">15sp</dimen>
+    <dimen name="margin_25dp">25dp</dimen>
 </resources>
